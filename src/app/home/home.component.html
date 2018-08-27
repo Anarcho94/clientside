@@ -18,35 +18,41 @@
       </div>
       <div *ngIf="viewInstructions.length !== 0">
         <div  *ngFor="let instruction of viewInstructions">
+
           <div class="row">
             <div class="col-lg-5 col-xl-5 pb-3">
-              <div class="view overlay rounded z-depth-2 waves-light" mdbWavesEffect>
-                <img src={{instruction.userImage}} alt="Sample image for first version of blog listing"
-                     class="img-fluid img-size w-100 h-100">
-                <a>
-                  <div class="mask rgba-white-slight"></div>
-                </a>
+              <div class="card">
+                <!-- Card image -->
+                <div class="view overlay">
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+
+                <!-- Card content -->
+                <div class="card-body">
+                  <ul class="d-flex flex-wrap align-content-start tags-pos p-0">
+                    <li class="p-1 bg-light rounded d-flex m-1" *ngFor="let category of instruction.categories">
+                      <span class="badge badge-primary pointer">{{category.name}}</span>
+                    </li>
+                  </ul>
+                  <h3 class="mb-4 font-weight-bold dark-grey-text">
+                    <strong>{{instruction.name}}</strong>
+                  </h3>
+                  <p><markdown>{{instruction.description}}</markdown></p>
+                  <p translate>by
+                    <a>
+                      <strong>{{instruction.authorName}}</strong>
+                    </a>, {{instruction.publishDate | date}}</p>
+                  <app-rating [username]="instruction.authorName" [read]="true" [idInstruction]="instruction.id"></app-rating>
+                  <a class="btn btn-md mb-3 waves-light" routerLink="/instruction/{{instruction.id}}" mdbWavesEffect translate>Read more</a>
+                </div>
               </div>
             </div>
-            <div class="col-lg-7 col-xl-7">
-              <ul class="d-flex flex-wrap align-content-start tags-pos p-0">
-                <li class="p-1 bg-light rounded d-flex m-1" *ngFor="let category of instruction.categories">
-                  <span class="badge badge-primary pointer">{{category.name}}</span>
-                </li>
-              </ul>
-              <h3 class="mb-4 font-weight-bold dark-grey-text">
-                <strong>{{instruction.name}}</strong>
-              </h3>
-              <p><markdown>{{instruction.description}}</markdown></p>
-              <p translate>by
-                <a>
-                  <strong>{{instruction.authorName}}</strong>
-                </a>, {{instruction.publishDate | date}}</p>
-              <app-rating [username]="instruction.authorName" [read]="true" [idInstruction]="instruction.id"></app-rating>
-              <a class="btn btn-md mb-3 waves-light" routerLink="/instruction/{{instruction.id}}" mdbWavesEffect translate>Read more</a>
-            </div>
           </div>
-          <hr class="mb-5 mt-5 pb-3">
+
+
         </div>
       </div>
       <div *ngIf="viewInstructions.length === 0">
