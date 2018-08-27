@@ -57,9 +57,7 @@ export class InstructionService {
   }
 
   sortByDate(instructions: InstructionInfoDto[], sortType: number): InstructionInfoDto[] {
-    return instructions.sort(function (a: InstructionInfoDto, c: InstructionInfoDto): number  {
-      return sortType * (a.publishDate.toLowerCase() > c.publishDate.toLowerCase() ? 1 : -1);
-    });
+    return instructions.reverse();
   }
 
   searchByFragment(instructions: InstructionInfoDto[], fragment: string): InstructionInfoDto[] {
