@@ -27,7 +27,7 @@
         <button type="button" class="btn btn-outline-default btn-rounded waves-effect" [disabled] = "correctLeftStep()" (click)= "leftrightStep(-1)"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-outline-default btn-rounded waves-effect" [disabled] = "correctRightStep()" (click)= "leftrightStep(1)"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
       </div>
-      <markdown [data]="instruction.steps[numberStep].text"></markdown>
+      <markdown [data]="instruction.steps[numberStep].stepText"></markdown>
     </div>
   </div>
 </div>

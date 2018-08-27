@@ -56,6 +56,10 @@ export class AuthenticationService {
       return JSON.parse(localStorage.getItem('currentUser')) !== null;
     }
 
+    isId(): number {
+      return JSON.parse(localStorage.getItem('currentUser')).id;
+    }
+
     isAdmin(): boolean {
       return this.isLogin() ? JSON.parse(localStorage.getItem('currentUser')).userRole === 'ROLE_ADMIN' : false;
     }

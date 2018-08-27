@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
              this.searchedInstructions.push(instructionInfo);
            }
            for (const step of instructionInfo.steps)
-             if ((step.name.search(re) !== -1) || (step.text.search(re) !== -1)) {
+             if ((step.name.search(re) !== -1) || (step.stepText.search(re) !== -1)) {
                this.searchedInstructions.push(instructionInfo);
              }
          }

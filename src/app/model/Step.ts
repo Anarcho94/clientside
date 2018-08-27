@@ -1,6 +1,5 @@
 ﻿export class Step {
-    instructionName: string;
     name: string;
-    text: string;
+    stepText: string;
     stepNumber: number;
 }

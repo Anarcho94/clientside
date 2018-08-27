@@ -41,6 +41,11 @@ export class ProfileNewsComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       search: ['', Validators.required]
     });
+    console.log(this.setIdUser());
+  }
+
+  setIdUser(): number {
+    return this.authenticationService.isId();
   }
 
   public deleteInstruction(id: number) {

@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload/ng2-file-upload';
-import {ErrorService, InfoService, InstructionService} from '../../service';
+import {AuthenticationService, ErrorService, InfoService, InstructionService} from '../../service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
@@ -18,7 +18,7 @@ export class EditInstructionComponent implements OnInit, OnDestroy {
 
   newStep: Step;
   numberSteps = 1;
-  instruction = new InstructionInfoDto();
+  instruction: InstructionInfoDto = new InstructionInfoDto();
   new = true;
   Title: FormControl;
   Description: FormControl;
@@ -40,7 +40,8 @@ export class EditInstructionComponent implements OnInit, OnDestroy {
               private sectionService: SectionService,
               private router: Router,
               private infoService: InfoService,
-              private errorService: ErrorService) {
+              private errorService: ErrorService,
+              private authenticationService: AuthenticationService) {
     this.stepForm = this.formBuilder.group({
       stepName: [''],
       stepText: ['']
@@ -50,15 +51,12 @@ export class EditInstructionComponent implements OnInit, OnDestroy {
         this.categories.push({id: category.id, name: category.name, isActive: false});
       }
     });
-    this.sectionService.getSteps().pipe(first()).subscribe((steps: Step[]) => {
-      this.instruction.steps = steps;
-    });
   }
 
   ngOnInit() {
     this.route.params.subscribe(
       (params: any) => {
-        this.instruction.id_user = params['authorId'];
+        this.instruction.id_user = this.authenticationService.getCurrentUserId();
         if (params.hasOwnProperty('id')) {
           const id = params['id'];
           this.new = false;
@@ -94,8 +92,8 @@ export class EditInstructionComponent implements OnInit, OnDestroy {
     if (this.instruction === undefined) {
       this.instruction.steps = null;
     }
-    for(const step of this.instruction.steps){
-      step.text += ' <img class="img-fluid" src="' + url + '" style="max-width: 500px; max-heigth: 900px;">';
+    for (const step of this.instruction.steps) {
+      step.stepText += ' <img class="img-fluid" src="' + url + '" style="max-width: 500px; max-heigth: 900px;">';
     }
 
   }
@@ -103,9 +101,9 @@ export class EditInstructionComponent implements OnInit, OnDestroy {
    addStep() {
      this.newStep = new Step();
      this.newStep.name = this.stepForm.controls.stepName.value;
-     this.newStep.text = this.stepForm.controls.stepText.value;
+     this.newStep.stepText = this.stepForm.controls.stepText.value;
      this.newStep.stepNumber = this.numberSteps;
-     if ((this.newStep.name.length !== 0) && (this.newStep.text.length !== 0)) {
+     if ((this.newStep.name.length !== 0) && (this.newStep.stepText.length !== 0)) {
        this.instruction.steps.push(this.newStep);
        this.numberSteps++;
      }
@@ -113,8 +111,8 @@ export class EditInstructionComponent implements OnInit, OnDestroy {
    }
 
    removeStep(step: Step) {
-    if(this.instruction.steps.length > 1) {
-      for( let num = step.stepNumber; num < this.instruction.steps.length; num++) {
+    if (this.instruction.steps.length > 1) {
+      for ( let num = step.stepNumber; num < this.instruction.steps.length; num++) {
         this.instruction.steps[num].stepNumber--;
       }
     }

@@ -6,7 +6,7 @@ export class InstructionInfoDto {
   description: string;
   publishDate: string;
   id_user: number;
-  userImage: string;
+ // userImage: string;
   authorName: string;
   value_rating: number;
   steps: Step[];
@@ -18,7 +18,7 @@ export class InstructionInfoDto {
     this.description = '';
     this.publishDate = '';
     this.id_user = null;
-    this.userImage = '';
+   // this.userImage = '';
     this.authorName = '';
     this.value_rating = null;
     this.steps = [];

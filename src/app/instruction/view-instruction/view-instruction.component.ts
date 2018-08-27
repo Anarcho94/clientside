@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {InstructionInfoDto} from '../../dto';
 import * as jsPDF from 'jspdf';
+import {Step} from '../../model';
 // import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-view-instruction',
@@ -32,6 +33,10 @@ export class ViewInstructionComponent implements OnInit {
             this.new = false;
             this.instructionService.getInstructionById(this.id).pipe(first()).subscribe((data: InstructionInfoDto) => {
               this.id = data.id;
+              this.instruction = data;
+              this. instruction.steps = this.instruction.steps.sort(function (a: Step, c: Step): number  {
+                return (a.stepNumber > c.stepNumber ? 1 : -1);
+              });
             },
               () => {
               this.router.navigate(['/exception404']);
