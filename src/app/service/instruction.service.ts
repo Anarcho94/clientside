@@ -23,7 +23,7 @@ export class InstructionService {
   }
 
   editInstruction(instruction: InstructionInfoDto) {
-    return this.http.post(`${environment.serverUrl}instruction/edit`, instruction);
+    return this.http.post(`${environment.serverUrl}instructions/edit`, instruction);
   }
 
   getInstructionById(id: number) {
