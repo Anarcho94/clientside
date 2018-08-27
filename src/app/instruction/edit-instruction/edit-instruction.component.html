@@ -32,8 +32,15 @@
         <label class="active" for="nameSteps" translate>Name step</label>
       </div>
       <div class="md-form">
-        <input class="form-control" id="textStep" required formControlName="stepText" type="text">
         <label class="active" for="textStep" translate>Text step</label>
+        <br>
+        <div id="textStep" required formControlName="stepText" ace-editor ng2FileDrop (onFileDrop)="imageUpload($event)"
+             [(text)]="textMarkDown"
+             [theme]="'eclipse'"
+             (fileOver)="fileOverAnother($event)"
+             [uploader]="uploader"
+             style="min-height: 300px; width:100%; overflow: auto;" name="markdownEditor">
+        </div>
       </div>
       <button mdbBtn color="info" class="mb-2 waves-light" mdbWavesEffect (click)="addStep()">
         Сохранить шаг
@@ -62,7 +69,7 @@
                     </div>
                     <div class="card-body" >
                       <div ace-editor ng2FileDrop (onFileDrop)="imageUpload($event)"
-                           [(text)]="step.text"
+                           [(text)]="step.stepText"
                            [theme]="'eclipse'"
                            (fileOver)="fileOverAnother($event)"
                            [uploader]="uploader"
@@ -73,7 +80,7 @@
                 </div>
                 <div *ngSwitchCase="'previewTab'">
                   <div class="card-body">
-                    <markdown [data]="step.text"></markdown>
+                    <markdown [data]="step.stepText"></markdown>
                   </div>
                 </div>
               </div>

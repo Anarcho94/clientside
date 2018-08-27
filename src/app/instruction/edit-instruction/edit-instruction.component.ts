@@ -16,6 +16,7 @@ import {Category, Step} from '../../model/';
 })
 export class EditInstructionComponent implements OnInit, OnDestroy {
 
+  textMarkDown: string;
   newStep: Step;
   numberSteps = 1;
   instruction: InstructionInfoDto = new InstructionInfoDto();
@@ -101,12 +102,13 @@ export class EditInstructionComponent implements OnInit, OnDestroy {
    addStep() {
      this.newStep = new Step();
      this.newStep.name = this.stepForm.controls.stepName.value;
-     this.newStep.stepText = this.stepForm.controls.stepText.value;
+     this.newStep.stepText = this.textMarkDown;
      this.newStep.stepNumber = this.numberSteps;
-     if ((this.newStep.name.length !== 0) && (this.newStep.stepText.length !== 0)) {
+     if ((this.newStep.name.length !== 0) && (this.textMarkDown.length !== 0)) {
        this.instruction.steps.push(this.newStep);
        this.numberSteps++;
      }
+     this.textMarkDown = '';
      this.stepForm.reset();
    }
 
